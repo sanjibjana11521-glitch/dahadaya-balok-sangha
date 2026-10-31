@@ -16,24 +16,35 @@ public class VisitCounterService {
         this.sessionFactory = sessionFactory;
     }
 
-    public long registerVisitAndGetTotal() {
+    public void registerVisitAndGetTotal() {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
+
             try {
-                // PostgreSQL atomic upsert prevents lost increments during simultaneous visits.
                 session.createNativeMutationQuery(
                     "INSERT INTO site_visit_counter (id, total_visits) VALUES (1, 1) " +
-"ON CONFLICT (id) DO UPDATE SET total_visits = site_visit_counter.total_visits + 1"
+                    "ON CONFLICT (id) DO UPDATE SET total_visits = " +
+                    "site_visit_counter.total_visits + 1"
                 ).executeUpdate();
 
-                VisitCounter counter = session.get(VisitCounter.class, 1L);
-                long total = counter.getTotalVisits();
                 transaction.commit();
-                return total;
+
             } catch (RuntimeException exception) {
                 transaction.rollback();
                 throw exception;
             }
+        }
+    }
+
+    public long getTotalVisits() {
+        try (Session session = sessionFactory.openSession()) {
+            VisitCounter counter = session.get(VisitCounter.class, 1L);
+
+            if (counter == null) {
+                return 0;
+            }
+
+            return counter.getTotalVisits();
         }
     }
 }
