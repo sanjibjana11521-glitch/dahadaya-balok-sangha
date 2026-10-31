@@ -5,6 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Members | Balok Sangha</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+	<style>
+	       body {
+	           margin: 0;
+	           padding: 30px 15px;
+	           background: #eef3f1;
+	           font-family: Arial, sans-serif;
+	       }
+
+	       .container {
+	           max-width: 850px;
+	           margin: auto;
+	           padding: 30px;
+	           background: white;
+	           border-radius: 15px;
+	           box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+	       }
+
+	       h1 {
+	           text-align: center;
+	           color: #176b58;
+	           font-size: 35px;
+	       }
+
+	       .subtitle {
+	           text-align: center;
+	           color: #555;
+	       }
+
+	       .total {
+	           text-align: center;
+	           color: #176b58;
+	           font-weight: bold;
+	           margin: 20px;
+	       }
+
+	       ol {
+	           display: grid;
+	           grid-template-columns: repeat(2, 1fr);
+	           gap: 10px 20px;
+	           padding-left: 35px;
+	       }
+
+	       li {
+	           padding: 12px;
+	           background: #f4f8f6;
+	           border-radius: 8px;
+	           font-size: 17px;
+	       }
+
+	       li:last-child,
+	       li:nth-last-child(2) {
+	           background: #dff1e7;
+	           font-weight: bold;
+	       }
+
+	       footer {
+	           text-align: center;
+	           margin-top: 25px;
+	           color: #666;
+	       }
+
+	       @media(max-width: 550px) {
+	           ol {
+	               grid-template-columns: 1fr;
+	           }
+	           .container {
+	               padding: 20px 15px;
+	           }
+	       }
+	   </style>
 </head>
 <body class="members-page">
 <header class="site-header">
@@ -14,6 +84,61 @@
     </a>
     <a class="back-link" href="/">← Back to Home</a>
 </header>
+
+<div class="container">
+
+    <h1>বালক সংঘ</h1>
+    <p class="subtitle">সদস্যদের নামের তালিকা</p>
+
+    <div class="total">
+        সর্বমোট: ৩৭ জন সদস্য
+    </div>
+
+    <ol>
+        <li>রঞ্জন জানা</li>
+        <li>গোপাল জানা</li>
+        <li>মানিক জানা</li>
+        <li>মাধব জানা</li>
+        <li>জিতু জানা</li>
+        <li>পীযুষ জানা</li>
+        <li>সুনীল জানা</li>
+        <li>সঞ্জীব জানা</li>
+        <li>রাজীব জানা</li>
+        <li>শান্তনু জানা</li>
+        <li>সুমন জানা</li>
+        <li>সুপ্রিয় জানা</li>
+        <li>অতনু জানা</li>
+        <li>রামচন্দ্র জানা</li>
+        <li>দেবু জানা</li>
+        <li>রাহুল জানা</li>
+        <li>শিবশঙ্কর জানা</li>
+        <li>সৌরভ জানা</li>
+        <li>শচীন জানা</li>
+        <li>বুদ্ধদেব দাস</li>
+        <li>বাসুদেব জানা</li>
+        <li>সঞ্জয় জানা</li>
+        <li>বাইনো দাস</li>
+        <li>শুকল্যাণ জানা</li>
+        <li>রাজেশ জানা</li>
+        <li>পূর্ণ চন্দ্র দাস</li>
+        <li>বিজয় জানা</li>
+        <li>সূর্য দাস</li>
+        <li>নাটু জানা</li>
+        <li>বিটু জানা</li>
+        <li>রামচন্দ্র সেনাপতি</li>
+        <li>হিরু দাস</li>
+        <li>শুকমল জানা</li>
+        <li>শুভঙ্কর জানা</li>
+        <li>পীযুষ কান্তি দাস</li>
+        <li>গৌর গোপাল দাস</li>
+        <li>রাধাকান্ত জানা</li>
+    </ol>
+
+    <footer>
+        বালক সংঘের সকল সদস্যের থেকে আন্তরিক শুভেচ্ছা
+    </footer>
+
+</div>
 <main class="members-main">
     <div class="section-heading">
         <span class="eyebrow">OUR COMMUNITY</span>
@@ -22,29 +147,17 @@
     </div>
     <p class="section-text">The people who come together to make Balok Sangha special.</p>
 
-    <div class="member-count">
-        Total Members: <strong th:text="${#lists.size(members)}">0</strong>
-    </div>
+   
 
-    <div th:if="${#lists.isEmpty(members)}" class="empty-members">
-        <span>🤝</span>
-        <h2>Members list is being prepared</h2>
-        <p>The club members' names will appear here after the committee list is added.</p>
-        <a class="btn btn-red" href="/">Return to Home</a>
-    </div>
+   
 
-    <div class="member-grid" th:if="${!#lists.isEmpty(members)}">
-        <article class="member-card" th:each="member, status : ${members}">
-            <span class="member-number" th:text="${status.count}">1</span>
-            <div>
-                <h2 th:text="${member.name}">Member Name</h2>
-                <p th:if="${member.role != null and !#strings.isEmpty(member.role)}" th:text="${member.role}">Role</p>
-            </div>
-        </article>
-    </div>
+    
 </main>
+
+
 <footer>
     <strong>বালক সংঘ · BALOK SANGHA</strong>
+     <p>© Developed by SHIVAUNIVERSE SOFTWARE SOLUTIONS(SANJIB JANA)</p>
     <p>© 2026 Balok Sangha. All rights reserved.</p>
 </footer>
 </body>
