@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.baloksangha.website.service.MemberService;
 import com.baloksangha.website.service.VisitCounterService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class HomeController {
 
@@ -19,9 +21,19 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("visitorCount", visitCounterService.registerVisitAndGetTotal());
+    public String home(Model model, HttpSession session) {
+
+        // Count only once for one browser session
+        if (session.getAttribute("visitCounted") == null) {
+            visitCounterService.registerVisitAndGetTotal();
+            session.setAttribute("visitCounted", true);
+        }
+
+        // Always show the current total
+        model.addAttribute("visitorCount", visitCounterService.getTotalVisits());
+
         model.addAttribute("memberCount", memberService.getAllMembers().size());
+
         return "index";
     }
 
